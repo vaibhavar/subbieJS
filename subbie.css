@@ -1,0 +1,25 @@
+.subbie-player{
+    width: 600px;
+    height: 100px;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    bottom: 0px;
+    left: 20%;
+    z-index: 9999;
+}
+
+#subbie-display{
+    font-size:24px;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    text-align: center;
+}
+
+#subbie-slider{
+    width: 100%;
+    text-align: center;
+}
+
+#subbie-slider input{
+    width: 99%;
+}
