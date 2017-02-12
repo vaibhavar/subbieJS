@@ -20,6 +20,12 @@
     text-align: center;
 }
 
-#subbie-slider input{
-    width: 99%;
+#subbie-slider > input{
+    width: 89%;
+    display: inline-block;
+}
+
+#subbie-slider > .time{
+    width: 10%;
+    display: inline-block;
 }

@@ -7,7 +7,7 @@
     function createSrtPlayer() {
         var sHtml = '<div id="subbie-player" class="subbie-player">\
                         <div id="subbie-display"></div>\
-                        <div id="subbie-slider"><input type="range" id="idSubbieSlider" min="0" /></div>\
+                        <div id="subbie-slider"><input type="range" id="idSubbieSlider" min="0" /> <div id="idSubbieTime class="time"></div> </div>\
                         <button id="idSubbiePlay">Play</button>\
                         <button id="idSubbiePause">Pause</button>\
                         <input id="idSubbieFileSelector" type="file"/>\
@@ -44,6 +44,14 @@
             if(aParts[1]){
                 var oDuration = aParts[1].split('-->');
                 var iDurationInSeconds = toSeconds(oDuration[1]) - toSeconds(oDuration[0]);
+
+                // Form the subtitle text after removing index and duration 
+                // eg. From Doctor Strange SRT file
+                //  974                          -- Index
+                // 01:47:17,265 --> 01:47:20,447 -- Duration
+                // Oh, yes. Probably.            -- Subtitle text 
+                // - Alright.                    -- Subtitle text
+                
                 var aText = aParts.concat([]);
                 aText.reverse();
                 aText.pop();
@@ -61,24 +69,40 @@
                 aSrtData.push(oSrtLine);
             }
         }
-        subbie.data = aSrtData;
-        subbie.cursor = 0;
-        subbie.max = aSrtData.length - 1;
+
+        // Subbie object that controls the player
+        subbie = {
+            data: aSrtData,
+            cursor: 0,
+            max: aSrtData.length - 1,
+            pause: false
+        };
+
+        // Set the slider max
         jQuery('#idSubbieSlider').attr('max', aSrtData.length - 1);
+        // Play the loaded SRT
+        handleSubbiePlay();
     }
 
     function playFrom(oScreen){
         var iCursor = subbie.cursor;
-        oScreen.text(subbie.data[iCursor].text);
+        var oCurrentSub = subbie.data[iCursor];
+
+        oScreen.text(oCurrentSub.text);
         jQuery('#idSubbieSlider').attr('value', iCursor);
-        if(iCursor < subbie.max){
+        jQuery('#idSubbieTime').html(oCurrentSub.duration);
+        
+        if(iCursor < subbie.max && !subbie.pause){
+            // Increment the cursor
             subbie.cursor = subbie.cursor + 1;
             setTimeout(playFrom, subbie.data[iCursor].durationMs, oScreen);
         }
     }
     
     function handleSubbiePause(){
-
+        var oScreen = jQuery('#subbie-display');
+        subbie.pause = subbie.pause? false:  true;
+        playFrom(oScreen);
     }
 
     function handleSubbiePlay(){
