@@ -1,9 +1,10 @@
 .subbie-player{
     width: 600px;
+    padding: 10px;
     height: 100px;
     background: rgba(0,0,0,0.5);
     position: fixed;
-    bottom: 0px;
+    bottom: 100px;
     left: 20%;
     z-index: 9999;
 }
@@ -13,6 +14,18 @@
     color: white;
     text-shadow: 1px 1px 1px black;
     text-align: center;
+}
+
+.noFile #subbie-slider, .noFile #idSubbieSearch, .noFile #idSubbiePlay, .noFile #idSubbiePause{
+    display: none;
+}
+
+.noFile #idSubbieFileSelector{
+    display: block;
+}
+
+#idSubbieFileSelector{
+    display: none;
 }
 
 #subbie-slider{
@@ -28,4 +41,38 @@
 #subbie-slider > .time{
     width: 10%;
     display: inline-block;
+}
+
+#idSubbieClose{
+    float: right;
+}
+
+#idSubbiePlay {
+    padding: 6px;
+    color: white;
+    background: #3399FF;
+    border: 2px solid black;
+    width: 60px;
+}
+
+#idSubbiePause{
+    padding: 6px;
+    color: white;
+    background: black;
+    border: 2px solid black;
+    width: 60px;
+}
+
+#idSubbieSearch {
+    font-size: 14px;
+    line-height: 24px;
+    border: 2px solid black;
+}
+
+#idSubbieClose{
+    padding: 6px;
+    color: white;
+    background: black;
+    border: 2px solid black;
+    width: 60px;
 }
